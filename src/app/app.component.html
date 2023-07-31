@@ -1,42 +1,17 @@
-<div class="main vertical-center">
-
-  <!-- แสดงคำถาม -->
-  <ng-template [ngIf]="!isEnd" [ngIfElse]="showScore">
-    <div class="container" style="max-width: 800px;">
-      <h2>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
-      <h3 class="mb-3 mt-3">{{questions[currentQuestionIndex].text}}</h3>
-
-      <div class="row">
-        <div class="col text-center">
-          <img *ngIf="questions[currentQuestionIndex].image" [src]="questions[currentQuestionIndex].image">
-        </div>
-      </div>
-
-
-      <div class="row g-2 mt-2">
-        <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
-          <button (click)="onClickchoice(choice)" class="btn btn-primary" style="width: 100%;">
-            {{choice.text}}
-          </button>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><b>Quiz App 🚀</b></a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Quiz</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
     </div>
-  </ng-template>
+  </div>
+</nav>
 
-  <!-- แสดงคะแนน -->
-  <ng-template #showScore>
-    <div class="container" style="max-width: 800px;">
-      <div class="row">
-        <div class="col-12 text-center h2">
-          Your score : {{score}}
-        </div>
-        <div class="col-12 text-center h2">
-         <button (click)="onClickNewClick()" class="btn btn-success">
-          RESTART
-         </button>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-
-</div>
+<app-quiz></app-quiz>

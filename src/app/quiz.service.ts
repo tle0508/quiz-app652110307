@@ -1,6 +1,11 @@
-import { Question } from "../question";
+import { Injectable } from '@angular/core';
+import { Question } from './question';
 
-export const quizData: Question[] = [
+@Injectable({
+  providedIn: 'root'
+})
+export class QuizService {
+  quizData: Question[] = [
     {
         id: 1,
         text: 'Politics: Who is the current President/Prime Minister of Canada?',
@@ -213,3 +218,11 @@ export const quizData: Question[] = [
         ],
     },
 ];
+
+  constructor() { 
+    
+  }
+  getQuizData(){
+    return this.quizData;
+  }
+}
