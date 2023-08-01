@@ -1,42 +1,59 @@
 <div class="main vertical-center">
 
-    <!-- แสดงคำถาม -->
-    <ng-template [ngIf]="!isEnd" [ngIfElse]="showScore">
-      <div class="container" style="max-width: 800px;">
-        <h2>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
-        <h3 class="mb-3 mt-3">{{questions[currentQuestionIndex].text}}</h3>
-  
-        <div class="row">
-          <div class="col text-center">
-            <img *ngIf="questions[currentQuestionIndex].image" [src]="questions[currentQuestionIndex].image">
-          </div>
-        </div>
-  
-  
-        <div class="row g-2 mt-2">
-          <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
-            <button (click)="onClickchoice(choice)" class="btn btn-primary" style="width: 100%;">
-              {{choice.text}}
-            </button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  
-    <!-- แสดงคะแนน -->
-    <ng-template #showScore>
-      <div class="container" style="max-width: 800px;">
-        <div class="row">
-          <div class="col-12 text-center h2">
-            Your score : {{score}}
-          </div>
-          <div class="col-12 text-center h2">
-           <button (click)="onClickNewClick()" class="btn btn-success">
-            RESTART
-           </button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  
+
+
+
+
+  <div class="btn-group btn-group-sm" role="group" aria-label="Basic radio toggle button group">
+    <label type="button" class="btn btn-outline-primary" (click)="showQuestionList = false"> Each Question </label>
+    <label type="button" class="btn btn-outline-primary" (click)="toggleQuestionList()">Question List </label>
   </div>
+  <div *ngIf="!showQuestionList">
+    <div class="container" style="max-width: 800px;">
+      <div class="row">
+        <div class="col text-center">
+          <h2> {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
+        </div>
+      </div>
+      <h3 class="mb-3 mt-3">Q: {{questions[currentQuestionIndex].text}}</h3>
+
+      <h3 class="mb-3 mt-3">
+        <div *ngFor="let choice of questions[currentQuestionIndex].choices">
+          <p *ngIf="choice.isAnswer">
+            A: {{ choice.text }}
+          </p>
+        </div>
+      </h3>
+      <div class="row my-5">
+        <div class="col-sm-6 g-2 ">
+          <button class="btn btn-primary w-100" (click)="goToPreviousQuestion()" [disabled]="currentQuestionIndex ==0">
+            < Previous</button>
+        </div>
+        <div class="col-sm-6 g-2 ">
+          <button class="btn btn-primary w-100" (click)="goToNextQuestion()" [disabled]="isEnd || isLastQuestion()">Next
+            ></button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="showQuestionList">
+    <div class="container" style="max-width: 800px;">
+      <div class="row my-4">
+        <div class="row md-8">
+          <div *ngFor="let question of questions">
+            <strong>Q: {{ question.text }}</strong>
+           
+              <div *ngFor="let choice of question.choices">
+                <span *ngIf="choice.isAnswer">👍  {{ choice.text }}</span>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+       
+     
+    </div>
+  </div>
+</div>

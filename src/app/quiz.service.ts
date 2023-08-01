@@ -4,7 +4,18 @@ import { Question } from './question';
 @Injectable({
   providedIn: 'root'
 })
-export class QuizService {
+export class QuizService { 
+
+    checkTrueAnswer(questionId: number, selectedChoiceId: number): boolean {
+    const question = this.quizData.find((q) => q.id === questionId);
+    if (question) {
+      const selectedChoice = question.choices.find((choice) => choice.id === selectedChoiceId);
+      return selectedChoice ? selectedChoice.isAnswer : false;
+    }
+    return false;
+  }
+
+
   quizData: Question[] = [
     {
         id: 1,
@@ -190,33 +201,8 @@ export class QuizService {
             },
         ],
     },
-    {
-        id: 8,
-        text: 'Who is owner of TESLAAA?',
-        image: './assets/images/tesla.jpg',
-        choices: [
-            {
-                id: 1,
-                text: 'ELONNN MUSKK',
-                isAnswer: false,
-            },
-            {
-                id: 2,
-                text: 'MUSK ELON',
-                isAnswer: true,
-            },
-            {
-                id: 3,
-                text: 'EMUSK LON',
-                isAnswer: false,
-            },
-            {
-                id: 4,
-                text: 'LON da Vinci',
-                isAnswer: false,
-            },
-        ],
-    },
+    
+    
 ];
 
   constructor() { 
@@ -225,4 +211,14 @@ export class QuizService {
   getQuizData(){
     return this.quizData;
   }
+  
+  getQuizDataNoImage(): Question[] {
+    return this.quizData.map((question) => {
+      
+      const { image, ...questionWithoutImage } = question;
+      return questionWithoutImage;
+    });
+  }
+  
 }
+
